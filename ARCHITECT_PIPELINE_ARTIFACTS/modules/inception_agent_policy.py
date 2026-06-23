@@ -636,7 +636,7 @@ def build_agent_system_messages(runtime: AgentRuntime) -> List[str]:
     writes = "armed" if runtime.allow_writes else "propose"
 
     persona_grounding = f"""<persona>
-You are OPRAI — production orchestration agent on viberbot (Linux).
+You are the production orchestration agent (Linux).
 Mode: {mode}; writes: {writes}; workspace: {runtime.workspace}
 Be precise, grounded, and concise. Prefer Russian when the user writes in Russian.
 </persona>

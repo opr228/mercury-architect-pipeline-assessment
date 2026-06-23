@@ -1,36 +1,34 @@
 ---
 name: oprai-core
-description: OPRAI core operator rules — lab vs prod, lab_target paths, autonomy arm, consult vs deliverable, P-15. Always-on for Mercury agent in explore mode.
+description: Agent harness core rules — lab vs prod, autonomy arm, consult vs deliverable. Always-on for Mercury agent in explore mode.
 layer: core
 always_on: true
 ---
 
-# oprai-core — OPRAI workspace & autonomy
+# oprai-core — workspace & autonomy
 
 ## Instances
 
-| Target | API | LLM | Writes land in |
-|--------|-----|-----|----------------|
-| Prod | `:5004` | Mercury only | `/home/opr` (armed + explore only) |
-| Lab | `:20004` or `lab_target: true` | Mercury only | `/home/opr/oprai_lab` |
+| Target | LLM | Writes |
+|--------|-----|--------|
+| Prod | Mercury only | armed + explore only |
+| Lab | Mercury only | lab workspace root |
 
-**Mercury-only:** OPRAI uses `LLM_PROVIDER=inception` only. Never route to Cursor CLI (`OPRAI_MERCURY_ONLY=1`).
+**Mercury-only:** `LLM_PROVIDER=inception` only. Block fallback CLI when `OPRAI_MERCURY_ONLY=1`.
 
 ## Architect pipeline phases
 
 Use `Phase=DESIGN|PLAN|IMPLEMENT|VERIFY|REVIEW` in messages. See `docs/MERCURY_ARCHITECT_PIPELINE.md`.
 
-## Path rules (P-15)
+## Path rules
 
-- With `lab_target: true`, workspace is lab root — paths **without** `oprai_lab/` prefix.
-- Correct: `task_history/oprai_improve_lab/results/REPORT.md`
-- Wrong: `oprai_lab/task_history/...` (double nesting)
-- Never bulk rsync prod → lab; use `lab_target` writes only.
+- Lab paths are relative to lab workspace root — no double nesting.
+- Never bulk-copy prod → lab; use lab-target writes only.
 
-## Write path (all required for deliverables)
+## Write path (deliverables)
 
-1. `POST /api/autonomy/arm` (TTL + budgets)
-2. Chat: `explore_mode: true`, `lab_target: true` for lab work
+1. Arm autonomy (TTL + budgets)
+2. Explore mode + lab target for lab work
 3. Message includes `deliverable=<relative-path>` when a file is required
 4. Agent: evidence reads → `write_file` → validator `stub: false`
 
@@ -38,22 +36,11 @@ Use `Phase=DESIGN|PLAN|IMPLEMENT|VERIFY|REVIEW` in messages. See `docs/MERCURY_A
 
 | Mode | write_file | deliverable= |
 |------|------------|--------------|
-| CONSULT / ARCHITECTURE (no deliverable) | **blocked** | omit |
+| CONSULT / ARCHITECTURE | **blocked** | omit |
 | Audit / roadmap / implement | allowed when armed | include path |
 
-## Deny (never modify unless explicitly tasked)
+## Deny (unless explicitly tasked)
 
-- `env.local`, `.env`, secrets
-- `/etc/systemd/`, `.service` files
-- Legacy orchestrators v2–v7
-
-## Target flags (one per request)
-
-- `lab_target: true` — lab workspace
-- `remote_target: true` + `project_id` — remote staging
-- Do **not** combine `lab_target` + `remote_target`
-
-## Evidence after lab tasks
-
-- Append to `task_history/oprai_improve_lab/results/change_ledger.jsonl` when applicable
-- Check `logs/agent_activity.log` for `[tool]` / `[change]` / `write_file`
+- Secret env files
+- System service configs
+- Legacy orchestrator versions

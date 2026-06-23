@@ -1,10 +1,10 @@
 # Mercury Architect Pipeline — полный пакет артефактов
 
 Собрано: 2026-06-23  
-  
-Repo: `git@github.com-oprai:opr228/OPRAI.git` (private)
 
-Архив: `ARCHITECT_PIPELINE_ARTIFACTS.tar.gz` (рядом с этой папкой)
+Публичный репозиторий: https://github.com/opr228/mercury-architect-pipeline-assessment
+
+Архив: `ARCHITECT_PIPELINE_ARTIFACTS.tar.gz` (в корне репозитория)
 
 ---
 
@@ -131,17 +131,16 @@ Fabrication patterns: `req_2026*`, `req_YYYYMMDD_NNN`, `tokens_input`, `tokens_o
 ## Быстрый reproduce
 
 ```bash
-# v4 architect pipeline (lab)
-cd /home/opr
-python3 /home/opr/oprai_lab/scripts/run_roadmap_v4_architect.py
+# v4 architect pipeline (requires full harness checkout + API key)
+python3 scripts/run_roadmap_v4_architect.py
 
 # evidence bundle
-python3 /home/opr/scripts/build_evidence_bundle.py \
+python3 scripts/build_evidence_bundle.py \
   --task roadmap-v4 \
   --files docs/CODEBASE_MAP.md modules/llm_router.py \
-  --workspace /home/opr/oprai_lab \
-  --out task_history/oprai_improve_lab/results/_bundle.md
+  --workspace . \
+  --out results/_bundle.md
 
 # golden path (cache task)
-python3 /home/opr/oprai_lab/scripts/run_architect_pipeline_golden.py
+python3 scripts/run_architect_pipeline_golden.py
 ```

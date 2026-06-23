@@ -21,7 +21,7 @@ description: Deep OPRAI ecosystem audit via Inception Mercury — evidence reads
 ```markdown
 # OPRAI Ecosystem Audit — {date}
 
-**Auditor:** Inception Mercury (OPRAI :5004)
+**Auditor:** Inception Mercury (agent harness)
 **Request:** {request_id}
 **Evidence:** tool reads listed below
 

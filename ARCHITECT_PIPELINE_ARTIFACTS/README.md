@@ -21,7 +21,7 @@ cat logs/TOOL_CALL_SUMMARY.md
 
 Roadmap v4: **40 `read_file` calls, 0 `write_file`** — dLLM stuck in re-read loop before synthesis.
 
-## Reproduce (requires INCEPTION_API_KEY + OPRAI checkout)
+## Reproduce (requires INCEPTION_API_KEY + full harness checkout)
 
 ```bash
 python3 scripts/run_roadmap_v4_architect.py
