@@ -1,0 +1,14 @@
+# Local env and secrets
+.env
+.env.*
+env.local
+env.secrets
+env.cursor.secret
+
+# Python cache
+__pycache__/
+*.pyc
+
+# Local logs and temp artifacts
+logs/
+tmp/

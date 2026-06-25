@@ -10,6 +10,7 @@ This repository contains **documentation and reference code snapshots only** —
 |------|-------------|
 | [`ARCHITECT_PIPELINE_ARTIFACTS/`](ARCHITECT_PIPELINE_ARTIFACTS/) | Full tree (59 files): adapter, policy, TaskRunner, validators, skills, tests, logs |
 | [`ARCHITECT_PIPELINE_ARTIFACTS.tar.gz`](ARCHITECT_PIPELINE_ARTIFACTS.tar.gz) | Same content, compressed |
+| [`MERCURY_RUNTIME_EXPORT/`](MERCURY_RUNTIME_EXPORT/) | Curated Mercury runtime modules, entrypoints, tests, and ops docs for public review |
 
 Start with:
 
