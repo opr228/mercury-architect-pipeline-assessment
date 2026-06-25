@@ -1,41 +1,26 @@
-# Mercury Architect Pipeline — Assessment Artifacts
+# Mercury Runtime Export
 
-Public artifact bundle for reviewing a **diffusion-LLM (dLLM) agent harness**: tool/synthesis loop, phase gates, deliverable validation, and a documented read-loop failure case.
+Public repository with a curated export of the Mercury-related runtime from OPRAI for external review.
 
-This repository contains **documentation and reference code snapshots only** — not a runnable product deployment.
+This repository contains source snapshots, tests, and operational docs for the Mercury orchestration path.
 
 ## What's inside
 
 | Path | Description |
 |------|-------------|
-| [`ARCHITECT_PIPELINE_ARTIFACTS/`](ARCHITECT_PIPELINE_ARTIFACTS/) | Full tree (59 files): adapter, policy, TaskRunner, validators, skills, tests, logs |
-| [`ARCHITECT_PIPELINE_ARTIFACTS.tar.gz`](ARCHITECT_PIPELINE_ARTIFACTS.tar.gz) | Same content, compressed |
 | [`MERCURY_RUNTIME_EXPORT/`](MERCURY_RUNTIME_EXPORT/) | Curated Mercury runtime modules, entrypoints, tests, and ops docs for public review |
 
 Start with:
 
-1. [`ARCHITECT_PIPELINE_ARTIFACTS/INDEX.md`](ARCHITECT_PIPELINE_ARTIFACTS/INDEX.md) — manifest  
-2. [`ARCHITECT_PIPELINE_ARTIFACTS/GAP_ANALYSIS.md`](ARCHITECT_PIPELINE_ARTIFACTS/GAP_ANALYSIS.md) — root cause + proposed fixes  
-3. [`ARCHITECT_PIPELINE_ARTIFACTS/logs/TOOL_CALL_SUMMARY.md`](ARCHITECT_PIPELINE_ARTIFACTS/logs/TOOL_CALL_SUMMARY.md) — 40 reads, 0 writes  
+1. [`MERCURY_RUNTIME_EXPORT/README.md`](MERCURY_RUNTIME_EXPORT/README.md) — export manifest  
+2. [`MERCURY_RUNTIME_EXPORT/modules/`](MERCURY_RUNTIME_EXPORT/modules/) — core Mercury adapter/policy/router modules  
+3. [`MERCURY_RUNTIME_EXPORT/tests/unit/`](MERCURY_RUNTIME_EXPORT/tests/unit/) — related unit tests  
 
-## Problem statement
+## Notes
 
-A roadmap generation task (`Phase=PLAN`) hit the step budget with **40 consecutive `read_file` calls** and **no `write_file`**. API traces show `completion_tokens=0` on every tool step — typical dLLM tool-only mode before synthesis.
-
-## Architecture (high level)
-
-```
-User message + deliverable=
-        ↓
-Skills (dLLM rules + domain workflow)
-        ↓
-Agent loop: tool steps → evidence gates → synthesis → write_file
-        ↓
-Validators (plan / fabrication / verify schema)
-        ↓
-TaskRunner phase checkpoints
-```
+- Secret files are intentionally excluded.
+- Some docs include local example paths from the source environment.
 
 ## License
 
-MIT — assessment and reference material.
+MIT.
